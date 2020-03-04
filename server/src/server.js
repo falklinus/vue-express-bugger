@@ -1,15 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const { sequelize } = require('./models');
+const config = require('./config/config');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.post('/register', (req, res) => {
-  res.send({
-    msg: `Your user was registered with ${req.body.email}!`
-  });
-});
+require('./routes')(app);
 
-app.listen(process.env.PORT || 8081);
+sequelize.sync().then(() => {
+  app.listen(config.PORT || 8081);
+  console.log(`Server started on port ${config.port}`);
+});
