@@ -6,9 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/status', (req, res) => {
+app.post('/register', (req, res) => {
   res.send({
-    msg: 'Hello World'
+    msg: `Your user was registered with ${req.body.email}!`
   });
 });
 
