@@ -10,7 +10,7 @@ app.use(express.json());
 
 require('./routes')(app);
 
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(config.PORT || 8081);
   console.log(`Server started on port ${config.port}`);
 });
