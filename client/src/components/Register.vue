@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 class="page-title">Register Account</h2>
-    <form class="form">
+    <h1 class="page-title">Register Account</h1>
+    <form>
       <div class="input-section">
         <label for="email">Email adress</label>
         <br>
@@ -60,37 +60,40 @@ export default {
     };
   },
   methods: {
-    register(e) {
+    async register(e) {
       e.preventDefault();
-
-      AuthenticationService.register({
-        email: this.email,
-        password: this.password,
-        confirmPassword: this.confirmPassword
-      })
-        .then(res => {
-          console.log(res.data);
-          this.error = {
-            email: null,
-            password: null,
-            confirmPassword: null,
-            general: null
-          };
-          this.email = "";
-          this.password = "";
-          this.confirmPassword = "";
-        })
-        .catch(err => {
-          this.error = err.response.data;
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password,
+          confirmPassword: this.confirmPassword
         });
+        this.error = {
+          email: null,
+          password: null,
+          confirmPassword: null,
+          general: null
+        };
+        this.email = "";
+        this.password = "";
+        this.confirmPassword = "";
+      } catch (err) {
+        this.error = err.response.data;
+      }
     }
   }
 };
 </script>
 
 <style scoped>
-.form {
+form {
   width: 50%;
+}
+
+@media (max-width: 500px) {
+  form {
+    width: 100%;
+  }
 }
 
 .input-section {

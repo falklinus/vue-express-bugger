@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 class="page-title">Sign in to your account</h2>
-    <form v-on:submit="login">
+    <h1 class="page-title">Sign in to your account</h1>
+    <form>
       <div class="input-section">
         <label for="email">Email adress</label>
         <br>
@@ -14,7 +14,7 @@
       </div>
       <br>
       <p class="error-text" v-if="error.general">{{error.general}}</p>
-      <button class="btn btn-outline">Sign in</button>
+      <button class="btn btn-outline" v-on:click="login">Sign in</button>
       <p class="redirect-text">
         Don't have an account?
         <span>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-// import AuthenticationService from "@/services/AuthenticationService";
+import AuthenticationService from "@/services/AuthenticationService";
 
 export default {
   name: "Login",
@@ -40,8 +40,19 @@ export default {
     };
   },
   methods: {
-    login(e) {
+    async login(e) {
       e.preventDefault();
+      try {
+        await AuthenticationService.login({
+          email: this.email,
+          password: this.password
+        });
+        this.email = "";
+        this.password = "";
+        this.error.general = null;
+      } catch (err) {
+        this.error = err.response.data;
+      }
     }
   }
 };
@@ -50,6 +61,12 @@ export default {
 <style scoped>
 form {
   width: 50%;
+}
+
+@media (max-width: 500px) {
+  form {
+    width: 100%;
+  }
 }
 
 .input-section {

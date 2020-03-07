@@ -32,10 +32,14 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
+  /* font-weight: 400; */
+  line-height: 1.6;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 ul {
   list-style: none;
@@ -49,7 +53,7 @@ a {
 p,
 label,
 input {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .content-wrapper {
@@ -61,7 +65,7 @@ input {
   padding: 0.3rem 0.9rem;
   border: none;
   border-radius: 0.25rem;
-  font-size: 14px;
+  font-size: 1rem;
   cursor: pointer;
   outline: none;
   transition: opacity 0.1s ease-in-out;
@@ -75,8 +79,7 @@ input {
   transition: all 0.2s ease-in-out;
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
+.btn-primary:hover {
   background: #8c2a7d;
   box-shadow: var(--btn-shadow-hover);
 }
@@ -88,8 +91,7 @@ input {
   padding: 0.5rem 0.8rem;
 }
 
-.btn-on-dark:hover,
-.btn-on-dark:focus {
+.btn-on-dark:hover {
   background: #a53194;
   opacity: 1;
 }
@@ -101,8 +103,7 @@ input {
   transition: all 0.1s ease-in-out;
 }
 
-.btn-outline:hover,
-.btn-outline:focus {
+.btn-outline:hover {
   border: 1px solid #ae0094;
   background: #ff62ea0d;
   opacity: 1;
