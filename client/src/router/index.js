@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
-import About from '@/components/About';
 import Register from '@/components/Register';
 import Login from '@/components/Login';
+import Dashboard from '@/components/App/Dashboard';
 
 Vue.use(Router);
 
@@ -15,11 +15,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
-    },
-    {
       path: '/register',
       name: 'Register',
       component: Register
@@ -28,6 +23,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/app',
+      name: 'Dashboard',
+      component: Dashboard
     }
   ]
 });

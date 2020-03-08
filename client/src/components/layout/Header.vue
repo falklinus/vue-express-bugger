@@ -1,48 +1,51 @@
 <template>
-  <nav class="nav-bar">
-    <div class="nav-logo">
-      <router-link to="/">
-        <button v-on:click="makeActive('home')" class="btn">uMeBugs</button>
-      </router-link>
-    </div>
-    <ul class="nav-links">
-      <li>
-        <router-link to="/">
-          <button v-if="links.home" class="btn link-active">Home</button>
-          <button v-if="!links.home" v-on:click="makeActive('home')" class="btn link-inactive">Home</button>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/about">
-          <button v-if="links.about" class="btn link-active">About</button>
+  <nav class="nav-outer">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <div
+          style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
+          margin: 0"
+          v-if="$store.state.isUserLoggedIn"
+          v-on:click="redirectTo({name: 'Dashboard'})"
+        >
+          <font-awesome-icon :icon="['fas', 'bug']"/>uMeBugs
+        </div>
+        <button
+          v-if="!$store.state.isUserLoggedIn"
+          class="btn"
+          v-on:click="redirectTo({name: 'Home'})"
+        >uMeBugs</button>
+        <!-- <button
+          v-if="$store.state.isUserLoggedIn"
+          class="btn"
+          v-on:click="redirectTo({name: 'Dashboard'})"
+        >uMeBugs</button>-->
+      </div>
+      <ul class="nav-links">
+        <li v-if="!$store.state.isUserLoggedIn">
+          <button v-if="$store.state.route.name==='Register'" class="link-active">Register</button>
           <button
-            v-if="!links.about"
-            v-on:click="makeActive('about')"
-            class="btn link-inactive"
-          >About</button>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/register">
-          <button v-if="links.register" class="btn link-active">Register</button>
-          <button
-            v-if="!links.register"
-            v-on:click="makeActive('register')"
-            class="btn link-inactive"
+            v-if="$store.state.route.name!=='Register'"
+            v-on:click="redirectTo({name:'Register'})"
+            class="link-inactive"
           >Register</button>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/login">
-          <button v-if="links.login" class="btn link-active">Login</button>
+        </li>
+        <li v-if="!$store.state.isUserLoggedIn">
+          <button v-if="$store.state.route.name==='Login'" class="link-active">Login</button>
           <button
-            v-if="!links.login"
-            v-on:click="makeActive('login')"
-            class="btn link-inactive"
+            v-if="$store.state.route.name!=='Login'"
+            v-on:click="redirectTo({name:'Login'})"
+            class="link-inactive"
           >Login</button>
-        </router-link>
-      </li>
-    </ul>
+        </li>
+        <li v-if="$store.state.isUserLoggedIn">
+          <div class="fa-icon">
+            <font-awesome-icon :icon="['fas', 'cog']" style="color: rgba(0, 0, 0, 0.7);"/>
+          </div>
+          <!-- <button v-on:click="logout" class="btn link-inactive">Logout</button> -->
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
@@ -50,56 +53,81 @@
 export default {
   name: "Header",
   data() {
-    return {
-      links: {
-        home: true,
-        about: false,
-        register: false,
-        login: false
-      }
-    };
+    return {};
   },
   methods: {
-    makeActive(link) {
-      this.links = {
-        home: false,
-        about: false,
-        register: false,
-        login: false
-      };
-      this.links[link] = true;
+    logout() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setUser", null);
+      this.$router.push("/");
+    },
+    redirectTo(path) {
+      if (this.$store.state.route.name !== path.name) this.$router.push(path);
     }
   }
 };
 </script>
 
 <style scoped>
-.nav-bar {
+.fa-icon {
+  border-radius: 0.25rem;
+  cursor: pointer;
+  padding: 0.4rem 0.5rem;
+  margin: 0 0.5rem;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.fa-icon:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.nav-outer {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 3.5rem;
+  height: 3rem;
+  background: #f7f7f7;
+  border-bottom: 1px solid #e3e3e3;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
-  /* background: #ae0094; */
-  border-bottom: 1px solid var(--primary-color);
 }
 
-.nav-bar .nav-logo {
-  margin-left: 1rem;
+.nav-inner {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  margin: auto;
 }
 
-.nav-bar .nav-links {
+.nav-inner .nav-links {
   display: flex;
   margin-left: auto;
-  margin-right: 1rem;
   align-items: center;
 }
 
 button {
   color: var(--primary-color);
   position: relative;
+  border: none;
+  margin-left: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  outline: none;
+  background: none;
+}
+
+.nav-logo {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.nav-logo button {
+  margin: 0;
 }
 
 .link-active::after {
@@ -111,7 +139,6 @@ button {
   transform: translate(-50%, 0%);
   height: 2px;
   background: var(--primary-color);
-  transition: all 0.2s ease;
 }
 
 .link-inactive::after {
@@ -124,7 +151,7 @@ button {
   height: 2px;
   opacity: 0;
   background: var(--primary-color);
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
 }
 
 .link-inactive:hover::after {
