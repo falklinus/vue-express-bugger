@@ -23,5 +23,6 @@ nav {
   background: #fafafa;
   height: calc(100vh - 3rem);
   padding-top: 3rem;
+  padding-left: 0.5rem;
 }
 </style>

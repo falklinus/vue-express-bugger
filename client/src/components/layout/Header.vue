@@ -3,18 +3,22 @@
     <div class="nav-inner">
       <div class="nav-logo">
         <div
+          class="fa-icon"
           style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
           margin: 0"
           v-if="$store.state.isUserLoggedIn"
           v-on:click="redirectTo({name: 'Dashboard'})"
         >
+          <font-awesome-icon :icon="['fas', 'bug']"/>
+        </div>
+        <div
+          style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
+          margin: 0"
+          v-if="!$store.state.isUserLoggedIn"
+          v-on:click="redirectTo({name: 'Home'})"
+        >
           <font-awesome-icon :icon="['fas', 'bug']"/>uMeBugs
         </div>
-        <button
-          v-if="!$store.state.isUserLoggedIn"
-          class="btn"
-          v-on:click="redirectTo({name: 'Home'})"
-        >uMeBugs</button>
         <!-- <button
           v-if="$store.state.isUserLoggedIn"
           class="btn"
