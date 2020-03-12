@@ -1,6 +1,11 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('Bug', {
+module.exports = (sequelize, DataTypes) => {
+  const Bug = sequelize.define('Bug', {
     title: DataTypes.STRING,
     description: DataTypes.TEXT
-    //ownerId: DataTypes.INTEGER
   });
+
+  Bug.associate = function(models) {
+    Bug.belongsTo(models.User);
+  };
+  return Bug;
+};

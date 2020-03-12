@@ -3,8 +3,13 @@ const { Bug } = require('../models');
 module.exports = {
   async index(req, res) {
     try {
+      const { userId } = req.query;
       const bugs = await Bug.findAll({
-        limit: 10
+        where: {
+          UserId: userId
+        }
+        /* ,
+        limit: 10 */
       });
       res.send(bugs);
     } catch (err) {

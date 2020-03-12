@@ -6,7 +6,7 @@
           class="fa-icon"
           style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
           margin: 0"
-          v-if="$store.state.isUserLoggedIn"
+          v-if="isUserLoggedIn"
           v-on:click="redirectTo({name: 'Dashboard'})"
         >
           <font-awesome-icon :icon="['fas', 'bug']"/>
@@ -14,7 +14,7 @@
         <div
           style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
           margin: 0"
-          v-if="!$store.state.isUserLoggedIn"
+          v-if="!isUserLoggedIn"
           v-on:click="redirectTo({name: 'Home'})"
         >
           <font-awesome-icon :icon="['fas', 'bug']"/>uMeBugs
@@ -26,23 +26,23 @@
         >uMeBugs</button>-->
       </div>
       <ul class="nav-links">
-        <li v-if="!$store.state.isUserLoggedIn">
-          <button v-if="$store.state.route.name==='Register'" class="link-active">Register</button>
+        <li v-if="!isUserLoggedIn">
+          <button v-if="route.name==='Register'" class="link-active">Register</button>
           <button
-            v-if="$store.state.route.name!=='Register'"
+            v-if="route.name!=='Register'"
             v-on:click="redirectTo({name:'Register'})"
             class="link-inactive"
           >Register</button>
         </li>
-        <li v-if="!$store.state.isUserLoggedIn">
-          <button v-if="$store.state.route.name==='Login'" class="link-active">Login</button>
+        <li v-if="!isUserLoggedIn">
+          <button v-if="route.name==='Login'" class="link-active">Login</button>
           <button
-            v-if="$store.state.route.name!=='Login'"
+            v-if="route.name!=='Login'"
             v-on:click="redirectTo({name:'Login'})"
             class="link-inactive"
           >Login</button>
         </li>
-        <li v-if="$store.state.isUserLoggedIn">
+        <li v-if="isUserLoggedIn">
           <div class="fa-icon">
             <font-awesome-icon :icon="['fas', 'cog']" style="color: rgba(0, 0, 0, 0.7);"/>
           </div>
@@ -54,10 +54,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Header",
   data() {
     return {};
+  },
+  computed: {
+    ...mapState(["isUserLoggedIn", "route"])
   },
   methods: {
     logout() {

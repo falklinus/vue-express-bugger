@@ -9,15 +9,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import BugsService from "@/services/BugsService";
+
 export default {
   data() {
     return {
       bugs: null
     };
   },
+  computed: {
+    ...mapState(["user"])
+  },
   async mounted() {
-    this.bugs = (await BugsService.index()).data;
+    this.bugs = (await BugsService.index(this.user.id)).data;
   }
 };
 </script>
