@@ -1,7 +1,7 @@
 const { Bug } = require('../models');
 
 module.exports = {
-  async index(req, res) {
+  async getAll(req, res) {
     try {
       const { userId } = req.query;
       const bugs = await Bug.findAll({
@@ -18,7 +18,7 @@ module.exports = {
       });
     }
   },
-  async post(req, res) {
+  async postOne(req, res) {
     try {
       const bug = await Bug.create(req.body);
       res.send(bug);

@@ -2,28 +2,12 @@
   <nav class="nav-outer">
     <div class="nav-inner">
       <div class="nav-logo">
-        <div
-          class="fa-icon"
-          style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
-          margin: 0"
-          v-if="isUserLoggedIn"
-          v-on:click="redirectTo({name: 'Dashboard'})"
-        >
+        <div class="fa-icon" v-if="isUserLoggedIn" v-on:click="redirectTo({name: 'Dashboard'})">
           <font-awesome-icon :icon="['fas', 'bug']"/>
         </div>
-        <div
-          style="color: rgba(0, 0, 0, 0.7); font-weight: 500;
-          margin: 0"
-          v-if="!isUserLoggedIn"
-          v-on:click="redirectTo({name: 'Home'})"
-        >
+        <div class="fa-icon" v-if="!isUserLoggedIn" v-on:click="redirectTo({name: 'Home'})">
           <font-awesome-icon :icon="['fas', 'bug']"/>uMeBugs
         </div>
-        <!-- <button
-          v-if="$store.state.isUserLoggedIn"
-          class="btn"
-          v-on:click="redirectTo({name: 'Dashboard'})"
-        >uMeBugs</button>-->
       </div>
       <ul class="nav-links">
         <li v-if="!isUserLoggedIn">
@@ -44,9 +28,8 @@
         </li>
         <li v-if="isUserLoggedIn">
           <div class="fa-icon">
-            <font-awesome-icon :icon="['fas', 'cog']" style="color: rgba(0, 0, 0, 0.7);"/>
+            <font-awesome-icon :icon="['fas', 'cog']"/>
           </div>
-          <!-- <button v-on:click="logout" class="btn link-inactive">Logout</button> -->
         </li>
       </ul>
     </div>
@@ -86,10 +69,12 @@ export default {
   font-size: 18px;
   display: flex;
   align-items: center;
+  color: #fff;
+  transition: background 0.1s ease-in-out;
 }
 
 .fa-icon:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-outer {
@@ -99,16 +84,19 @@ export default {
   right: 0;
   height: 3rem;
   background: #f7f7f7;
+  background: #3d3d3d;
   border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #414141;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
+  color: #fff;
 }
 
 .nav-inner {
   display: flex;
   align-items: center;
-  width: 70%;
+  width: 900px;
   margin: auto;
 }
 
@@ -120,6 +108,7 @@ export default {
 
 button {
   color: var(--primary-color);
+  color: #fff;
   position: relative;
   border: none;
   margin-left: 1rem;

@@ -77,7 +77,7 @@ input {
 }
 
 .content-wrapper {
-  width: 70%;
+  width: 900px;
   margin: 0 auto;
   display: flex;
   padding-top: 3rem;
