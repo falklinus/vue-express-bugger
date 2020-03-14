@@ -1,7 +1,7 @@
 import Api from './Api';
 
 export default {
-  index(userId) {
-    return Api().get(`bugs?userId=${userId}`);
+  index(projectId) {
+    return Api().get(`bugs?projectId=${projectId}`);
   }
 };

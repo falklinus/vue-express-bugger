@@ -4,11 +4,12 @@ import router from './router';
 import { sync } from 'vuex-router-sync';
 import store from '@/store/store';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCog, faBug } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faBug, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faCog);
 library.add(faBug);
+library.add(faEllipsisH);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

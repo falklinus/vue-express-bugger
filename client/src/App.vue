@@ -91,7 +91,7 @@ input {
   flex: 21;
   border-right: 1px solid var(--light-border-color);
   background: #fff;
-  padding: 2rem 4rem;
+  padding: 2rem 3rem;
 }
 
 .btn {

@@ -11,17 +11,17 @@
       </div>
       <ul class="nav-links">
         <li v-if="!isUserLoggedIn">
-          <button v-if="route.name==='Register'" class="link-active">Register</button>
+          <button v-if="$route.name==='Register'" class="link-active">Register</button>
           <button
-            v-if="route.name!=='Register'"
+            v-if="$route.name!=='Register'"
             v-on:click="redirectTo({name:'Register'})"
             class="link-inactive"
           >Register</button>
         </li>
         <li v-if="!isUserLoggedIn">
-          <button v-if="route.name==='Login'" class="link-active">Login</button>
+          <button v-if="$route.name==='Login'" class="link-active">Login</button>
           <button
-            v-if="route.name!=='Login'"
+            v-if="$route.name!=='Login'"
             v-on:click="redirectTo({name:'Login'})"
             class="link-inactive"
           >Login</button>
@@ -45,7 +45,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "route"])
+    ...mapState(["isUserLoggedIn"])
   },
   methods: {
     logout() {
@@ -54,7 +54,7 @@ export default {
       this.$router.push("/");
     },
     redirectTo(path) {
-      if (this.$store.state.route.name !== path.name) this.$router.push(path);
+      if (this.$route.name !== path.name) this.$router.push(path);
     }
   }
 };

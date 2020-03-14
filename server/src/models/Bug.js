@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Bug.associate = function(models) {
     Bug.belongsTo(models.User);
+    Bug.belongsTo(models.Project);
   };
   return Bug;
 };

@@ -3,10 +3,10 @@ const { Bug } = require('../models');
 module.exports = {
   async getAll(req, res) {
     try {
-      const { userId } = req.query;
+      const { projectId } = req.query;
       const bugs = await Bug.findAll({
         where: {
-          UserId: userId
+          ProjectId: projectId
         }
         /* ,
         limit: 10 */

@@ -28,8 +28,10 @@ export default {
   },
   methods: {
     redirectTo(path, id) {
-      this.activeId = id;
-      this.$router.push(path);
+      if (this.$route.path !== path) {
+        this.activeId = id;
+        this.$router.push(path);
+      }
     }
   },
   async mounted() {
