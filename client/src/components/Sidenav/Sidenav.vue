@@ -1,14 +1,26 @@
 <template>
   <nav>
-    <ProjectList/>
+    <ProjectList title="My projects" v-bind:projects="myProjects"/>
+    <ProjectList title="Shared with me" v-bind:projects="sharedProjects"/>
   </nav>
 </template>
 
 <script>
 import ProjectList from "./ProjectList.vue";
+import ProjectsService from "@/services/ProjectsService";
 export default {
   name: "Sidenav",
-  components: { ProjectList }
+  data() {
+    return {
+      myProjects: null,
+      sharedProjects: null
+    };
+  },
+  components: { ProjectList },
+  async mounted() {
+    this.myProjects = (await ProjectsService.getMyProjects()).data;
+    this.sharedProjects = (await ProjectsService.getSharedProjects()).data;
+  }
 };
 </script>
 

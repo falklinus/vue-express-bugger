@@ -5,7 +5,7 @@
         <div class="chevron-icon" v-bind:class="{right: !listHeaderActive}">
           <font-awesome-icon :icon="['fas', 'chevron-down']" style="color: gray;"/>
         </div>
-        <h4>Projects</h4>
+        <h4>{{title}}</h4>
       </div>
       <div class="plus-icon">
         <div class="dash-horizontal"></div>
@@ -20,7 +20,7 @@
         v-on:click="redirectTo(`/app/projects/${project.id}`, project.id)"
       >{{project.title}}</li>
     </ul>
-    <div class="project-list-header">
+    <!-- <div class="project-list-header">
       <div class="left-section" v-on:click="listToggle">
         <div class="chevron-icon" v-bind:class="{right: !listHeaderActive}">
           <font-awesome-icon :icon="['fas', 'chevron-down']" style="color: gray;"/>
@@ -31,20 +31,20 @@
         <div class="dash-horizontal"></div>
         <div class="dash-vertical"></div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-import ProjectsService from "@/services/ProjectsService";
 export default {
   data() {
     return {
-      projects: null,
+      //projects: null,
       activeId: null,
       listHeaderActive: true
     };
   },
+  props: ["title", "projects"],
   methods: {
     redirectTo(path, id) {
       if (this.$route.path !== path) {
@@ -55,9 +55,6 @@ export default {
     listToggle() {
       this.listHeaderActive = !this.listHeaderActive;
     }
-  },
-  async mounted() {
-    this.projects = (await ProjectsService.getProjects()).data;
   }
 };
 </script>
@@ -133,7 +130,6 @@ export default {
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.25rem;
-  transition: background 0.1s ease-in-out;
 }
 
 .projects-list li:hover,

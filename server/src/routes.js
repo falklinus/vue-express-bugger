@@ -16,7 +16,12 @@ module.exports = app => {
   app.get('/bugs', isAuthenticated, BugsController.getAll);
   app.post('/bugs', isAuthenticated, BugsController.postOne);
 
-  app.get('/projects', isAuthenticated, ProjectsController.getAll);
+  app.get('/projects', isAuthenticated, ProjectsController.getUserProjects);
+  app.get(
+    '/projects/shared',
+    isAuthenticated,
+    ProjectsController.getSharedProjects
+  );
   app.get('/projects/:projectId', isAuthenticated, ProjectsController.getOne);
   app.post('/projects', isAuthenticated, ProjectsController.postOne);
 };
