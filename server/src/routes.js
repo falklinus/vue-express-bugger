@@ -2,7 +2,7 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy');
 const BugsController = require('./controllers/BugsController');
 const ProjectsController = require('./controllers/ProjectsController');
-const UserController = require('./controllers/UserController');
+const isAuthenticated = require('./policies/isAuthenticated');
 
 module.exports = app => {
   app.post(
@@ -13,11 +13,10 @@ module.exports = app => {
 
   app.post('/login', AuthenticationController.login);
 
-  app.get('/bugs', BugsController.getAll);
-  app.post('/bugs', BugsController.postOne);
+  app.get('/bugs', isAuthenticated, BugsController.getAll);
+  app.post('/bugs', isAuthenticated, BugsController.postOne);
 
-  app.get('/users/:userId/projects', UserController.getProjects);
-
-  app.get('/projects/:projectId', ProjectsController.getOne);
-  app.post('/projects', ProjectsController.postOne);
+  app.get('/projects', isAuthenticated, ProjectsController.getAll);
+  app.get('/projects/:projectId', isAuthenticated, ProjectsController.getOne);
+  app.post('/projects', isAuthenticated, ProjectsController.postOne);
 };

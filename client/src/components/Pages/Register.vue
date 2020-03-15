@@ -68,8 +68,9 @@ export default {
           password: this.password,
           confirmPassword: this.confirmPassword
         });
-        this.$store.dispatch("setToken", response.data.token);
-        this.$store.dispatch("setUser", response.data.user);
+        await this.$store.dispatch("setToken", response.data.token);
+        await this.$store.dispatch("setUser", response.data.user);
+        this.$router.push("/app");
       } catch (err) {
         this.error = err.response.data;
       }
@@ -100,7 +101,7 @@ form {
 }
 
 input {
-  padding: 0.5rem 0.3rem;
+  padding: 0.3rem;
   font-size: 1rem;
   border: 1px solid var(--primary-color-light);
   border-radius: 0.25rem;

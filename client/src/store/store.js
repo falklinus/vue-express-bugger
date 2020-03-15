@@ -14,8 +14,10 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
       if (token) {
+        localStorage.setItem('jwt-token', token);
         state.isUserLoggedIn = true;
       } else {
+        localStorage.removeItem('jwt-token');
         state.isUserLoggedIn = false;
       }
     },
@@ -25,10 +27,29 @@ export default new Vuex.Store({
   },
   actions: {
     setToken({ commit }, token) {
-      commit('setToken', token);
+      return new Promise((resolve, reject) => {
+        commit('setToken', token);
+        if (this.state.token) resolve('Success');
+        else reject('Error');
+      });
     },
     setUser({ commit }, user) {
-      commit('setUser', user);
+      return new Promise((resolve, reject) => {
+        commit('setUser', user);
+        if (this.state.user) resolve('Success');
+        else reject('Error');
+      });
+    },
+    checkForToken({ commit }) {
+      return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('jwt-token');
+        if (token) {
+          commit('setToken', token);
+          resolve('Success');
+        } else {
+          reject('Error');
+        }
+      });
     }
   }
 });

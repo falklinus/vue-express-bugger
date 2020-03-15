@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header/>
+    <Topnav/>
     <div v-if="$store.state.isUserLoggedIn" class="content-wrapper">
       <div class="sidenav">
         <Sidenav/>
@@ -16,11 +16,19 @@
 </template>
 
 <script>
-import Header from "./components/layout/Header";
-import Sidenav from "./components/layout/Sidenav";
+import Topnav from "./components/Layout/Topnav";
+import Sidenav from "./components/Sidenav/Sidenav";
 export default {
   name: "App",
-  components: { Header, Sidenav }
+  components: { Topnav, Sidenav },
+  async mounted() {
+    try {
+      await this.$store.dispatch("checkForToken");
+      this.$router.push("/app");
+    } catch (err) {
+      console.log("User is not logged in");
+    }
+  }
 };
 </script>
 
@@ -84,11 +92,12 @@ input {
 }
 
 .sidenav {
-  flex: 10;
+  width: 290px;
 }
 
 .page-content {
-  flex: 21;
+  /* flex: calc(900px - 290px); */
+  width: calc(100% - 290px);
   border-right: 1px solid var(--light-border-color);
   background: #fff;
   padding: 2rem 3rem;
@@ -140,5 +149,11 @@ input {
 .btn-outline:hover {
   border: 1px solid var(--primary-color);
   background: var(--primary-color-faded);
+}
+
+@media (max-width: 900px) {
+  .content-wrapper {
+    width: 100%;
+  }
 }
 </style>

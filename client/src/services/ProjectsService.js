@@ -1,8 +1,8 @@
 import Api from './Api';
 
 export default {
-  getUserProjects(userId) {
-    return Api().get(`users/${userId}/projects`);
+  getProjects() {
+    return Api().get('projects');
   },
   getOne(projectId) {
     return Api().get(`projects/${projectId}`);

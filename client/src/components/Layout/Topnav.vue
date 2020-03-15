@@ -136,7 +136,7 @@ button {
   bottom: 0;
   transform: translate(-50%, 0%);
   height: 2px;
-  background: var(--primary-color);
+  background: #fff;
 }
 
 .link-inactive::after {
@@ -148,7 +148,7 @@ button {
   transform: translate(-50%, -300%) scale(0);
   height: 2px;
   opacity: 0;
-  background: var(--primary-color);
+  background: #fff;
   transition: all 0.1s ease;
 }
 

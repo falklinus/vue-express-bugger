@@ -8,6 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+require('./passport');
+
 require('./routes')(app);
 
 sequelize.sync().then(() => {

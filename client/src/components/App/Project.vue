@@ -62,7 +62,7 @@ export default {
 }
 
 .project-title {
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .project-cta {
