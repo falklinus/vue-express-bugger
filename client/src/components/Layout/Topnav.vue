@@ -28,23 +28,24 @@
         </li>
         <li v-if="isUserLoggedIn">
           <div class="settings-container">
-            <div class="fa-icon" v-on:click="toggleShowSettings" ref="'cog'">
-              <font-awesome-icon :icon="['fas', 'cog']"/>
+            <div class="fa-icon outside-click-exclude" v-on:click="toggleShowSettings">
+              <font-awesome-icon :icon="['fas', 'cog']" style="pointer-events: none"/>
             </div>
-            <div
-              ref="settings-triangle"
-              class="settings-triangle"
-              v-bind:class="{show: showSettings===true}"
-            ></div>
+            <div v-if="showSettings" class="settings-triangle outside-click-exclude"></div>
             <ul
+              v-if="showSettings"
               class="settings-list"
-              v-bind:class="{show: showSettings===true}"
-              v-closable="{exclude: ['settings-triangle', 'cog'], handler: 'toggleShowSettings'}"
+              id="topNavSettings"
+              v-outside-click="{exclude: ['outside-click-exclude'], handler: exitSettings}"
             >
               <li>Test</li>
               <li>Test</li>
               <li>Test</li>
-              <li>Test</li>
+              <div class="horizontal-line"></div>
+              <li v-on:click="() => {logout(); exitSettings()}">
+                <font-awesome-icon :icon="['fas', 'sign-out-alt']" style="pointer-events: none"/>
+                <span class="settings-list-text">Sign out</span>
+              </li>
             </ul>
           </div>
         </li>
@@ -60,7 +61,7 @@ export default {
   name: "Header",
   data() {
     return {
-      showSettings: true
+      showSettings: false
     };
   },
   computed: {
@@ -76,63 +77,14 @@ export default {
       if (this.$route.name !== path.name) this.$router.push(path);
     },
     toggleShowSettings() {
-      if (this.showSettings) this.showSettings = false;
-      else this.showSettings = true;
+      console.log("clickad");
+      this.showSettings = !this.showSettings;
+    },
+    exitSettings() {
+      this.showSettings = false;
     }
   }
 };
-
-/*import Vue from "vue";
-
-// This variable will hold the reference to
-// document's click handler
-let handleOutsideClick;
-
- Vue.directive("closable", {
-  bind(el, binding, vnode) {
-    // Here's the click/touchstart handler
-    // (it is registered below)
-    handleOutsideClick = e => {
-      e.stopPropagation();
-      // Get the handler method name and the exclude array
-      // from the object used in v-closable
-      const { handler, exclude } = binding.value;
-
-      // This variable indicates if the clicked element is excluded
-      let clickedOnExcludedEl = false;
-      exclude.forEach(refName => {
-        // We only run this code if we haven't detected
-        // any excluded element yet
-        if (!clickedOnExcludedEl) {
-          // Get the element using the reference name
-          const excludedEl = vnode.context.$refs[refName];
-          // See if this excluded element
-          // is the same element the user just clicked on
-          clickedOnExcludedEl = excludedEl.contains(e.target);
-        }
-      });
-
-      // We check to see if the clicked element is not
-      // the dialog element and not excluded
-      if (!el.contains(e.target) && !clickedOnExcludedEl) {
-        // If the clicked element is outside the dialog
-        // and not the button, then call the outside-click handler
-        // from the same component this directive is used in
-        vnode.context[handler]();
-      }
-    };
-    // Register click/touchstart event listeners on the whole page
-    document.addEventListener("click", handleOutsideClick);
-    document.addEventListener("touchstart", handleOutsideClick);
-  },
-
-  unbind() {
-    // If the element that has v-closable is removed, then
-    // unbind click/touchstart listeners from the whole page
-    document.removeEventListener("click", handleOutsideClick);
-    document.removeEventListener("touchstart", handleOutsideClick);
-  }
-}); */
 </script>
 
 
@@ -249,23 +201,23 @@ button {
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   border-radius: 0.2rem;
   padding: 0.3rem 0;
-  display: none;
-}
-
-.show {
-  display: block;
 }
 
 .settings-list li {
   padding: 0.3rem 0.7rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .settings-list li:hover {
   background: #f3f3f3;
 }
 
+.settings-list li .settings-list-text {
+  margin-left: 1rem;
+}
+
 .settings-triangle {
-  display: none;
   z-index: 3;
   position: absolute;
   left: 50%;
@@ -274,9 +226,5 @@ button {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 7px solid #fff;
-}
-
-.settings-triangle.show {
-  display: block;
 }
 </style>

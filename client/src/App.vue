@@ -151,6 +151,12 @@ input {
   background: var(--primary-color-faded);
 }
 
+.horizontal-line {
+  height: 1px;
+  width: 100%;
+  background: var(--light-border-color);
+}
+
 @media (max-width: 900px) {
   .content-wrapper {
     width: 100%;
