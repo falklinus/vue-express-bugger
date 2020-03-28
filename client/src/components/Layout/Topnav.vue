@@ -68,10 +68,14 @@ export default {
     ...mapState(["isUserLoggedIn"])
   },
   methods: {
-    logout() {
-      this.$store.dispatch("setToken", null);
-      this.$store.dispatch("setUser", null);
-      this.$router.push("/");
+    async logout() {
+      try {
+        await this.$store.dispatch("setToken", null);
+        await this.$store.dispatch("setUser", null);
+        this.$router.push("/");
+      } catch (err) {
+        console.log(err);
+      }
     },
     redirectTo(path) {
       if (this.$route.name !== path.name) this.$router.push(path);
@@ -107,6 +111,7 @@ export default {
 
 .nav-outer {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
@@ -190,7 +195,6 @@ button {
 }
 
 .settings-list {
-  z-index: 2;
   position: fixed;
   left: calc((100vw - 900px) / 2 + 900px - 2rem - 10rem);
   top: calc(3rem);
@@ -201,6 +205,7 @@ button {
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   border-radius: 0.2rem;
   padding: 0.3rem 0;
+  z-index: 9;
 }
 
 .settings-list li {
@@ -208,6 +213,7 @@ button {
   cursor: pointer;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .settings-list li:hover {
   background: #f3f3f3;
@@ -218,7 +224,7 @@ button {
 }
 
 .settings-triangle {
-  z-index: 3;
+  z-index: 10;
   position: absolute;
   left: 50%;
   top: 102%;
@@ -226,5 +232,11 @@ button {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 7px solid #fff;
+}
+
+@media (max-width: 1138px) {
+  .settings-list {
+    left: calc(100vw - 20.5rem);
+  }
 }
 </style>

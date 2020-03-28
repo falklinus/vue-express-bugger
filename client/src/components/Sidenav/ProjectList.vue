@@ -41,7 +41,7 @@ export default {
     return {
       //projects: null,
       activeId: null,
-      listHeaderActive: true
+      listHeaderActive: false
     };
   },
   props: ["title", "projects"],
@@ -93,8 +93,8 @@ export default {
   width: 1rem;
   margin-right: 0.5rem;
   cursor: pointer;
-  position: relative;
   padding: 1rem 0;
+  position: relative;
 }
 
 .plus-icon div {

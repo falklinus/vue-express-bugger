@@ -18,12 +18,16 @@
 <script>
 import Topnav from "./components/Layout/Topnav";
 import Sidenav from "./components/Sidenav/Sidenav";
+import AuthenticationService from "./services/AuthenticationService";
+
 export default {
   name: "App",
   components: { Topnav, Sidenav },
   async mounted() {
     try {
       await this.$store.dispatch("checkForToken");
+      const user = (await AuthenticationService.getUser()).data;
+      await this.$store.dispatch("setUser", user);
       this.$router.push("/app");
     } catch (err) {
       console.log("User is not logged in");

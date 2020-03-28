@@ -51,5 +51,14 @@ module.exports = {
         general: 'An error has occured trying to log in'
       });
     }
+  },
+  async getAuthUser(req, res) {
+    try {
+      res.send(req.user);
+    } catch (err) {
+      res.status(500).send({
+        general: 'Something went wrong trying to fetch user data'
+      });
+    }
   }
 };

@@ -13,6 +13,8 @@ module.exports = app => {
 
   app.post('/login', AuthenticationController.login);
 
+  app.get('/user', isAuthenticated, AuthenticationController.getAuthUser);
+
   app.get('/bugs', isAuthenticated, BugsController.getAll);
   app.post('/bugs', isAuthenticated, BugsController.postOne);
 
