@@ -27,17 +27,15 @@ export default new Vuex.Store({
   },
   actions: {
     setToken({ commit }, token) {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         commit('setToken', token);
-        if (this.state.token) resolve('Success');
-        else reject('Error');
+        resolve('Success');
       });
     },
     setUser({ commit }, user) {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         commit('setUser', user);
-        if (this.state.user) resolve('Success');
-        else reject('Error');
+        resolve('Success');
       });
     },
     checkForToken({ commit }) {

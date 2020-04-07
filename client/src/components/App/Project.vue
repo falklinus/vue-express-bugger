@@ -13,33 +13,43 @@
         </div>
       </div>
     </div>
-    <div class="bug-container" v-for="bug in bugs" :key="bug.id">
-      <h4>{{bug.title}}</h4>
-      <p>{{bug.description}}</p>
-    </div>
+    <new-bug :newBugEditing="newBugEditing"/>
+    <Bug v-for="bug in bugs" :key="bug.id" :bug="bug"/>
   </div>
 </template>
 
 <script>
 import ProjectsService from "@/services/ProjectsService";
 import BugsService from "@/services/BugsService";
+import Bug from "./Bug.vue";
+import NewBug from "./NewBug.vue";
 
 export default {
   name: "Project-view",
+  components: { Bug, NewBug },
   data() {
     return {
       project: null,
-      bugs: null
+      bugs: null,
+      newBugEditing: false
     };
   },
   mounted() {
-    this.fetchProject(this.$route.params.id);
-    this.fetchBugs(this.$route.params.id);
+    const projectId = this.$route.params.id;
+    if (projectId) {
+      this.fetchProject(projectId);
+      this.fetchBugs(projectId);
+    }
   },
   watch: {
-    "$route.params.id": function(id) {
-      this.fetchProject(id);
-      this.fetchBugs(id);
+    "$route.params.id": function(projectId) {
+      console.log(projectId);
+      if (projectId) {
+        this.fetchProject(projectId);
+        this.fetchBugs(projectId);
+        this.newBugEditing = false;
+        console.log(this.newBugEditing);
+      }
     }
   },
   methods: {
@@ -92,10 +102,5 @@ export default {
 
 .ellipsis:hover .dot {
   border-color: #333;
-}
-
-.bug-container {
-  padding: 1rem 0;
-  border-bottom: 1px solid #f0f0f0;
 }
 </style>

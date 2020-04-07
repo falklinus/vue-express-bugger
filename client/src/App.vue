@@ -84,7 +84,8 @@ a {
 
 p,
 label,
-input {
+input,
+textarea {
   font-size: 1rem;
 }
 
@@ -96,12 +97,12 @@ input {
 }
 
 .sidenav {
-  width: 290px;
+  width: 260px;
 }
 
 .page-content {
   /* flex: calc(900px - 290px); */
-  width: calc(100% - 290px);
+  width: calc(100% - 260px);
   border-right: 1px solid var(--light-border-color);
   background: #fff;
   padding: 2rem 3rem;
@@ -127,8 +128,8 @@ input {
 }
 
 .btn-primary:hover {
-  background: #8c2a7d;
   box-shadow: var(--btn-shadow-hover);
+  background: var(--primary-color-dark);
 }
 
 .btn-on-dark {

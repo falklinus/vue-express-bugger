@@ -81,7 +81,6 @@ export default {
       if (this.$route.name !== path.name) this.$router.push(path);
     },
     toggleShowSettings() {
-      console.log("clickad");
       this.showSettings = !this.showSettings;
     },
     exitSettings() {

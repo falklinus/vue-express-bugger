@@ -20,7 +20,7 @@ module.exports = {
   },
   async postOne(req, res) {
     try {
-      const bug = await Bug.create(req.body);
+      const bug = await Bug.create({ ...req.body, UserId: req.user.id });
       res.send(bug);
     } catch (err) {
       res.status(500).send({
